@@ -1,15 +1,19 @@
 /**
- * Assignment 4
+ * Assignment 5
  * File Name:    CustomTableViewCell.swift
  * Author:         Quoc Phong Ngo
  * Student ID:   301148406
  * Version:        1.0
- * Date Created:   November 12th, 2021
+ * Date Created:   November 25th, 2021
  */
 
 import UIKit
+import FirebaseDatabase
 
 class CustomTableViewCell: UITableViewCell {
+    
+    let ref = Database.database().reference(withPath: "todo-list")
+    var refObservers: [DatabaseHandle] = []
 
     weak var editButton: UIButton!
     
@@ -70,7 +74,7 @@ class CustomTableViewCell: UITableViewCell {
         editButton.setTitleColor(.blue, for: .normal)
         editButton.center.y = self.center.y
         //switch view
-        switchUI = UISwitch(frame: CGRect(x: 250, y: 5, width: 30, height: 15))
+        switchUI = UISwitch(frame: CGRect(x: 320, y: 5, width: 30, height: 15))
         switchUI.isEnabled = true
         switchUI.isOn = true
         switchUI.addTarget(self, action: #selector(self.switchStateDidChange(_:)), for: .valueChanged)
