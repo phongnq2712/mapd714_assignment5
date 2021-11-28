@@ -39,14 +39,29 @@ class ViewController: UIViewController {
                 if
                     let snapshot = child as? DataSnapshot,
                     let dataChange = snapshot.value as? [String:AnyObject],
-                    let groceryItem =  dataChange["name"] as? String {
-                    newItems.append(groceryItem)
+                    let notes = dataChange["notes"] as? String?,
+                    var taskItem =  dataChange["name"] as? String {
+//                    newItems = ["name":taskItem,"notes":notes]
+                    if(notes != nil) {
+                        newItems.append(taskItem + "-" + notes!)
+                    } else {
+                        newItems.append(taskItem)
+                    }
                 }
             }
             // 5
             while (flag) {
                 for i in newItems {
-                    self.tasks.append(Todo(name: i))
+                    print(i)
+                    let components = i.components(separatedBy: "-")
+                    for n in 0...components.count - 1 {
+                        if(components.count > 1) {
+                            self.tasks.append(Todo(name: components[0], notes: components[1]))
+                            break
+                        } else {
+                            self.tasks.append(Todo(name: components[0]))
+                        }
+                    }
                 }
                 self.tableView.reloadData()
                 flag = false
@@ -129,20 +144,10 @@ extension ViewController: UITableViewDataSource
             cell.backgroundColor = UIColor.systemGray5
             cell.dueDate = "Completed"
         }
-        
-        //let editImage = UIImage(systemName: "square.and.pencil")
-        //cell.imageView?.image = editImage
 
         // Add Edit button target (add target only once when the cell is created)
         cell.editButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
         cell.editButton.tag = indexPath.row
-        
-        // switch view
-//        let switchView = UISwitch(frame: .zero)
-//        switchView.setOn(false, animated: true)
-//        switchView.tag = indexPath.row
-//        switchView.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
-//        cell.accessoryView = switchView
     
         return cell
     }
@@ -155,6 +160,7 @@ extension ViewController: UITableViewDataSource
         // print("Task is \(tasks[sender.tag])")
         if let vc = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController {
             vc.taskNameText = tasks[sender.tag].name
+            vc.notesText = tasks[sender.tag].notes
             navigationController?.pushViewController(vc, animated: true)
         }
     }

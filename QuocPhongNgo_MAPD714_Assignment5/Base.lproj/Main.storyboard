@@ -181,6 +181,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="notes" destination="6lq-U1-cwt" id="V4R-qt-Sq2"/>
                         <outlet property="taskName" destination="6VM-Rl-P7I" id="2q2-KY-hce"/>
                     </connections>
                 </viewController>

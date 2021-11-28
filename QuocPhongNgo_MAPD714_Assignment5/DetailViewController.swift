@@ -12,13 +12,16 @@ import FirebaseDatabase
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var notes: UITextView!
     @IBOutlet weak var taskName: UITextField!
     var taskNameText: String?
+    var notesText: String?
     let ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         taskName.text = taskNameText
+        notes.text = notesText
     }
 
     /**
@@ -28,7 +31,15 @@ class DetailViewController: UIViewController {
         let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to update?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {[weak self](_) in
+            // remove a task
+            self!.update(child: self?.taskNameText ?? "")
+            // return todo list screen
+            if let vc = self?.storyboard?.instantiateViewController(identifier: "ViewController") as? ViewController {
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
+        
         present(alert, animated: true)
     }
     
@@ -51,6 +62,14 @@ class DetailViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    func update(child: String) {
+        let ref = self.ref.child(child)
+        ref.updateChildValues([
+            "name":taskName.text!,
+            "notes": notes.text!
+        ])
+    }
+    
     /**
      * Delete a task
      */
@@ -59,5 +78,17 @@ class DetailViewController: UIViewController {
         ref.removeValue { error, _ in
             print(error)
         }
+        
+//        let ref = Database.database().reference().child("phong")
+//
+//        ref.queryOrdered(byChild: "name").queryEqual(toValue: child).observe(.childAdded, with: { (snapshot) in
+//
+//            snapshot.ref.removeValue(completionBlock: { (error, reference) in
+//                if error != nil {
+//                    print("There has been an error:(error)")
+//                }
+//            })
+//
+//        })
     }
 }
