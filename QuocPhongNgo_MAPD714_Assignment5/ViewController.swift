@@ -95,6 +95,22 @@ class ViewController: UIViewController {
       
 }
 
+//extension ViewController: UITableViewDelegate
+//{
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        // Open the screen where we can see item info and dleete
+//        let item = tasks[indexPath.row]
+//
+//        guard let vc = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController else {
+//            return
+//        }
+//
+//        vc.taskNameText = item.name
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
+//}
+
 extension ViewController: UITableViewDataSource
 {
     
@@ -138,6 +154,7 @@ extension ViewController: UITableViewDataSource
          //Somehow get the IndexPath of the row whose button called this function
         // print("Task is \(tasks[sender.tag])")
         if let vc = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController {
+            vc.taskNameText = tasks[sender.tag].name
             navigationController?.pushViewController(vc, animated: true)
         }
     }

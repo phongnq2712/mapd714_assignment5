@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="QuocPhongNgo_MAPD714_Assignment4" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="QuocPhongNgo_MAPD714_Assignment5" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,7 +54,7 @@
         <!--Detail View Controller-->
         <scene sceneID="1J4-mR-HtB">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="SVR-Js-BjX" customClass="DetailViewController" customModule="QuocPhongNgo_MAPD714_Assignment4" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="SVR-Js-BjX" customClass="DetailViewController" customModule="QuocPhongNgo_MAPD714_Assignment5" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="F5M-wG-fYT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,12 +133,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemBlueColor"/>
                                 <state key="normal" backgroundImage="rectangle.and.pencil.and.ellipsis" catalog="system"/>
+                                <connections>
+                                    <action selector="btnUpdateClicked:" destination="SVR-Js-BjX" eventType="touchUpInside" id="Elt-EY-IqN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lox-Bu-oTJ">
                                 <rect key="frame" x="338" y="813" width="31" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" backgroundImage="trash" catalog="system"/>
+                                <connections>
+                                    <action selector="btnDeleteClicked:" destination="SVR-Js-BjX" eventType="touchUpInside" id="o0g-Tf-PB5"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rwj-0e-Wwy"/>
