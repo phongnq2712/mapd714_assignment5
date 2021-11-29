@@ -4,7 +4,7 @@
  * Author:         Quoc Phong Ngo
  * Student ID:   301148406
  * Version:        1.0
- * Date Created:   November 25th, 2021
+ * Date Modified:   November 28th, 2021
  */
 
 import UIKit
@@ -12,9 +12,6 @@ import FirebaseDatabase
 
 class CustomTableViewCell: UITableViewCell {
     
-    let ref = Database.database().reference(withPath: "todo-list")
-    var refObservers: [DatabaseHandle] = []
-
     weak var editButton: UIButton!
     
     var name:String = "" {
@@ -38,22 +35,7 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        // add a new subview for the new label
-        //let nameLabelRect = CGRect(x:0, y:5, width: 70, height: 15)
-        //let nameMarker = UILabel(frame: nameLabelRect)
-        //nameMarker.textAlignment = NSTextAlignment.right
-        //nameMarker.text = "Movie Name:"
-        //nameMarker.font = UIFont.boldSystemFont(ofSize: 12)
-        //contentView.addSubview(nameMarker)
-        
-        // add a new subview for the new label
-        //let genreLabelRect = CGRect(x:0, y:26, width: 70, height: 15)
-        //let genreMarker = UILabel(frame: genreLabelRect)
-        //genreMarker.textAlignment = NSTextAlignment.right
-        //genreMarker.text = "Genre Name:"
-        //genreMarker.font = UIFont.boldSystemFont(ofSize: 12)
-        //contentView.addSubview(genreMarker)
-        
+                
         let nameValueRect = CGRect(x:80, y:0, width: 200, height: 40)
         nameLabel = UILabel(frame: nameValueRect)
         contentView.addSubview(nameLabel)
@@ -73,23 +55,6 @@ class CustomTableViewCell: UITableViewCell {
         editButton.setImage(editImage, for: UIControl.State.normal)
         editButton.setTitleColor(.blue, for: .normal)
         editButton.center.y = self.center.y
-        //switch view
-        switchUI = UISwitch(frame: CGRect(x: 320, y: 5, width: 30, height: 15))
-        switchUI.isEnabled = true
-        switchUI.isOn = true
-        switchUI.addTarget(self, action: #selector(self.switchStateDidChange(_:)), for: .valueChanged)
-        contentView.addSubview(switchUI)
-    }
-    
-    @objc func switchStateDidChange(_ sender:UISwitch!)
-    {
-        //let rowData = tasks[sender.tag]
-        if (sender.isOn) {
-            dueDate = "ON"
-        }
-        else{
-            dueDate = "OFF"
-        }
     }
     
     required init?(coder: NSCoder) {

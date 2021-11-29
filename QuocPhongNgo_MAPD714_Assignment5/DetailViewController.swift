@@ -8,20 +8,38 @@
  */
 
 import UIKit
+import Firebase
 import FirebaseDatabase
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var hasDueDate: UISwitch!
+    @IBOutlet weak var dueDate: UIDatePicker!
     @IBOutlet weak var notes: UITextView!
+    @IBOutlet weak var isCompleted: UISwitch!
     @IBOutlet weak var taskName: UITextField!
     var taskNameText: String?
     var notesText: String?
+    var isCompletedText: Bool?
+    var hasDueDateText: Bool?
+    var dueDateText: Date?
     let ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         taskName.text = taskNameText
         notes.text = notesText
+        isCompleted.isOn = isCompletedText ?? false
+        hasDueDate.isOn = hasDueDateText ?? false
+        if(hasDueDateText != nil && hasDueDateText == false) {
+            dueDate.isEnabled = false
+        } else {
+            dueDate.isEnabled = true
+        }
+        if(dueDateText != nil) {
+            dueDate.date = dueDateText!
+        }
+        
     }
 
     /**
@@ -62,11 +80,20 @@ class DetailViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    /**
+     * Update for a task
+     */
     func update(child: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YY/MM/dd"
+    
         let ref = self.ref.child(child)
         ref.updateChildValues([
             "name":taskName.text!,
-            "notes": notes.text!
+            "notes": notes.text!,
+            "isCompleted": isCompleted.isOn,
+            "hasDueDate": hasDueDate.isOn,
+            "dueDate": dateFormatter.string(from: dueDate.date)
         ])
     }
     
@@ -78,17 +105,33 @@ class DetailViewController: UIViewController {
         ref.removeValue { error, _ in
             print(error)
         }
+    }
+    
+    /**
+     * Handling event for Cancel button
+     */
+    @IBAction func btnCancelClicked(_ sender: Any) {
+        let alert = UIAlertController(title: "Confirmation", message: "Are you sure you want to cancel these changes?", preferredStyle: .alert)
         
-//        let ref = Database.database().reference().child("phong")
-//
-//        ref.queryOrdered(byChild: "name").queryEqual(toValue: child).observe(.childAdded, with: { (snapshot) in
-//
-//            snapshot.ref.removeValue(completionBlock: { (error, reference) in
-//                if error != nil {
-//                    print("There has been an error:(error)")
-//                }
-//            })
-//
-//        })
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {[weak self](_) in
+            // return todo list screen
+            if let vc = self?.storyboard?.instantiateViewController(identifier: "ViewController") as? ViewController {
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    /**
+     * Handling event hasDueDate switch
+     */
+    @IBAction func hasDueDateChanged(_ sender: UISwitch) {
+        if(sender.isOn) {
+            dueDate.isEnabled = true
+        } else {
+            dueDate.isEnabled = false
+        }
     }
 }

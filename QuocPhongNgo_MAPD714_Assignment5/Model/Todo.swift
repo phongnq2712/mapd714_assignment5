@@ -4,7 +4,7 @@
  * Author:         Quoc Phong Ngo
  * Student ID:   301148406
  * Version:        1.0
- * Date Created:   November 25th, 2021
+ * Date Modified:   November 28th, 2021
  */
    
 import Foundation
@@ -15,7 +15,7 @@ class Todo
     private var m_name: String
     private var m_notes: String
     private var m_hasDueDate: Bool
-    private var m_dueDate: Date
+    private var m_dueDate: String
     private var m_isCompleted: Bool
     
     // public properties
@@ -66,7 +66,7 @@ class Todo
         }
     }
     
-    public var dueDate: Date
+    public var dueDate: String
     {
         get
         {
@@ -81,7 +81,7 @@ class Todo
     }
     
     // initializer (constructor)
-    init(name: String, notes:String = "", hasDueDate:Bool = false, dueDate:Date = Date(), isCompleted:Bool = false)
+    init(name: String, notes:String = "", hasDueDate:Bool = false, dueDate:String = "", isCompleted:Bool = false)
     {
         m_name = name
         m_notes = notes
@@ -92,23 +92,5 @@ class Todo
         m_isCompleted = isCompleted
     }
     
-    // Utility methods
-    public func removeDueDate()-> Void
-    {
-        m_hasDueDate = false
-        m_dueDate = Date()
-    }
-    
-    public func display()-> Void
-    {
-        print("id        : \(m_id)")
-        print("name      : \(name)")
-        print("notes     : \(notes)")
-        print("hasDueDate: \(hasDueDate)")
-        if(hasDueDate)
-        {
-            print("date      : \(dueDate)")
-        }
-    }
 }
 

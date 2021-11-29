@@ -112,6 +112,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="d9Y-SC-V2i"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="hasDueDateChanged:" destination="SVR-Js-BjX" eventType="valueChanged" id="XK7-1e-iCn"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKa-4k-Wu8">
                                 <rect key="frame" x="293" y="672" width="51" height="31"/>
@@ -127,6 +130,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                 <state key="normal" backgroundImage="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="btnCancelClicked:" destination="SVR-Js-BjX" eventType="touchUpInside" id="Jp1-oL-TSV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AqN-fK-HQk">
                                 <rect key="frame" x="40" y="813" width="31" height="31"/>
@@ -181,6 +187,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dueDate" destination="bkg-G4-deK" id="a0U-Ln-3fx"/>
+                        <outlet property="hasDueDate" destination="uj0-Pz-bbV" id="dam-VM-rT4"/>
+                        <outlet property="isCompleted" destination="HKa-4k-Wu8" id="wXt-Gr-p7t"/>
                         <outlet property="notes" destination="6lq-U1-cwt" id="V4R-qt-Sq2"/>
                         <outlet property="taskName" destination="6VM-Rl-P7I" id="2q2-KY-hce"/>
                     </connections>
